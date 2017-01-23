@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">King\'s Girls</string>
+
+    <string name="about_author">关于作者</string>
+    <string name="author">Jenly</string>
+    <string name="email_">Email:jenly1314@gmail.com</string>
+    <string name="csdn_">CSDN:http://blog.csdn.net/jenly121</string>
+    <string name="github_">Github:https://github.com/jenly1314</string>
+
+    <string name="choose_email_client">Choose email client</string>
+    <string name="share">Share</string>
+
+
+</resources>
