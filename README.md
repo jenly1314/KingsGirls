@@ -4,4 +4,4 @@
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](http://blog.csdn.net/jenly121)
 
 
-![Image](gif.gif)
+![Image](https://github.com/jenly1314/KingsGirls/blob/master/gif.gif)
