@@ -10,5 +10,8 @@
     <string name="choose_email_client">Choose email client</string>
     <string name="share">Share</string>
 
+    <string name="network_unavailable">Network unavailable</string>
+    <string name="page_load_failed">Page loading failed</string>
+    <string name="swipe_down_to_refresh">Swipe down to refresh</string>
 
 </resources>

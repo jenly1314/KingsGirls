@@ -40,7 +40,7 @@ dependencies {
     compile 'com.king.widget:superslidingpanelayout:1.0.2'
     compile 'com.jude:easyrecyclerview:4.3.7'
 
-    compile 'com.king.base:base:1.1'
+    compile 'com.king.base:base:2.0'
 //    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
 

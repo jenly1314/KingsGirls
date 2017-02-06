@@ -4,7 +4,7 @@
     android:id="@+id/superSlidingPaneLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_menu_bg1"
+    android:background="@drawable/ic_main_bg"
     app:mode="scale_both">
     <include layout="@layout/about_me_layout"/>
     <LinearLayout
@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                app:tabTextAppearance="@style/TabLayoutTextAppearance"
                 app:tabTextColor="@color/black"
                 app:tabSelectedTextColor="@color/red"
                 app:tabIndicatorHeight="3dp"
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="6dp"
-                android:src="@android:drawable/ic_dialog_email" />
+                android:src="@drawable/ic_top" />
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
 </com.king.girl.widget.KSSlidingPaneLayout>

@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:gravity="center_horizontal"
-    android:background="@drawable/ic_menu_bg">
+    android:gravity="center_horizontal">
 
     <!--<android.support.v4.widget.NestedScrollView-->
         <!--android:layout_width="match_parent"-->
@@ -94,11 +93,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
+                android:id="@+id/tvVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
-                android:layout_marginBottom="20dp"
-                android:text="V1.0" />
+                android:layout_marginBottom="20dp" />
         <!--</LinearLayout>-->
 
 

@@ -2,20 +2,30 @@ package com.king.girl.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.king.base.BaseFragment;
 import com.king.base.model.EventMessage;
 import com.king.base.util.LogUtils;
+import com.king.base.util.SharedPreferencesUtils;
+import com.king.base.util.SystemUtils;
 import com.king.girl.Constants;
+import com.king.girl.MainActivity;
 import com.king.girl.R;
 import com.king.girl.activity.ContentActivity;
 import com.king.girl.adapter.EsayGirlAdapter;
@@ -23,6 +33,8 @@ import com.king.girl.http.APIRetrofit;
 import com.king.girl.http.APIService;
 import com.king.girl.model.GirlResult;
 import com.king.girl.util.DensityUtil;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +47,19 @@ import rx.schedulers.Schedulers;
  * @author Jenly <a href="mailto:jenly1314@gmail.com">Jenly</a>
  * @since 2017/1/11
  */
-public class GirlsFragment extends BaseFragment {
+public class GirlsFragment extends BaseFragment implements MainActivity.OnScrollListener {
+
 
 
     public enum LayoutType{
         LinearLayout,GridLayout,StaggeredGridLayout
     }
 
-
     private LayoutType layoutType = LayoutType.StaggeredGridLayout;
 
     private static final int PAGE_SIZE = 20;
+
+    private TextView tvTips;
 
     private EasyRecyclerView recyclerView;
 
@@ -66,6 +80,12 @@ public class GirlsFragment extends BaseFragment {
     }
 
     @Override
+    public void onScroll() {
+        if(recyclerView!=null)
+            recyclerView.scrollToPosition(0);
+    }
+
+    @Override
     public int inflaterRootView() {
         return R.layout.fragment_girl;
     }
@@ -73,8 +93,9 @@ public class GirlsFragment extends BaseFragment {
     @Override
     public void initUI() {
 
-
         recyclerView = findView(R.id.recyclerView);
+
+        tvTips = (TextView) recyclerView.findViewById(R.id.tvTips);
 
         listData = new ArrayList<>();
         esayGirlAdapter = new EsayGirlAdapter(context,listData,layoutType == LayoutType.GridLayout);
@@ -137,21 +158,29 @@ public class GirlsFragment extends BaseFragment {
             }
         });
 
-        esayGirlAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+        esayGirlAdapter.setOnClickHolderItemListener(new EsayGirlAdapter.OnClickHolderItemListener() {
             @Override
-            public void onItemClick(int position) {
-                startGirlDetail((ArrayList<GirlResult.Girl>) esayGirlAdapter.getAllData(),position);
+            public void onItemClick(BaseViewHolder holder, int position) {
+                startGirlDetail((ArrayList<GirlResult.Girl>) esayGirlAdapter.getAllData(),position,holder.itemView);
             }
         });
 
     }
 
-    private void startGirlDetail(ArrayList<GirlResult.Girl> listData,int position){
+    /**
+     *
+     * @param listData
+     * @param position
+     * @param source
+     */
+    private void startGirlDetail(ArrayList<GirlResult.Girl> listData,int position,View source){
         Intent intent = new Intent(context, ContentActivity.class);
         intent.putExtra(KEY_FRAGMENT,ContentActivity.GIRL_DETAIL_FRAGMENT);
         intent.putParcelableArrayListExtra(Constants.LIST_GIRL,listData);
         intent.putExtra(Constants.CURRENT_POSTION,position);
-        startActivity(intent);
+
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(source,source.getWidth()/2,source.getHeight()/2,0,0);
+        ActivityCompat.startActivity(getActivity(),intent,activityOptionsCompat.toBundle());
     }
 
 
@@ -194,6 +223,14 @@ public class GirlsFragment extends BaseFragment {
                     @Override
                     public void onError(Throwable e) {
                         LogUtils.e(e);
+
+                        if(SystemUtils.isNetWorkActive(context)){
+                            tvTips.setText(R.string.page_load_failed);
+                        }else{
+                            tvTips.setText(R.string.network_unavailable);
+                        }
+
+                        recyclerView.showError();
                     }
 
                     @Override
@@ -201,19 +238,28 @@ public class GirlsFragment extends BaseFragment {
                         LogUtils.d(girlResult.toString());
                         if(!girlResult.isError()){
 //                            toSetList(listData,girlResult.getResults(),page>1);
+                            List<GirlResult.Girl> list = girlResult.getResults();
                             if(page<=1){
                                 esayGirlAdapter.clear();
+                                if(list!=null && list.size()>0){
+                                    SharedPreferencesUtils.put(context,Constants.FIRST_GIRL_URL,list.get(0).getUrl());
+                                }
                             }
                             esayGirlAdapter.addAll(girlResult.getResults());
 //                            refreshView();
                             if(esayGirlAdapter.getCount() >= page * size){
                                 curPage++;
+                            }else if(esayGirlAdapter.getCount()==0){
+                                recyclerView.showEmpty();
                             }
 
+                        }else{
+                            recyclerView.showEmpty();
                         }
                     }
                 });
     }
+
 
     @Override
     public void onEventMessage(EventMessage em) {

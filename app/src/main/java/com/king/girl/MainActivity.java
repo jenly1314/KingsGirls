@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.king.base.BaseActivity;
 import com.king.base.adapter.ViewPagerFragmentAdapter;
 import com.king.base.model.EventMessage;
+import com.king.base.util.SystemUtils;
 import com.king.girl.fragment.GirlsFragment;
 import com.king.widget.SuperSlidingPaneLayout;
 
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+    private TextView tvVersion;
 
     private SuperSlidingPaneLayout superSlidingPaneLayout;
 
@@ -36,11 +40,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private List<CharSequence> listTabs;
 
+    private OnScrollListener onScrollListener;
+
+    public interface OnScrollListener {
+         void onScroll();
+    }
+
 
     @Override
     public void initUI() {
 
         setContentView(R.layout.activity_main);
+
+        tvVersion = findView(R.id.tvVersion);
+
+        tvVersion.setText(String.format("V%s", SystemUtils.getVersionName(context)));
 
         superSlidingPaneLayout = findView(R.id.superSlidingPaneLayout);
 
@@ -57,6 +71,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void addListeners() {
         fab.setOnClickListener(this);
+
+
     }
 
 
@@ -70,10 +86,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         listTabs = new ArrayList<>();
 
         for (int i = 0; i < 7; i++) {
-            listTabs.add("Tab"+(i+1));
+            listTabs.add("Girls"+(i+1));
             switch (i){
                 case 0:
                     listData.add(GirlsFragment.newInstance(GirlsFragment.LayoutType.StaggeredGridLayout));
+                    onScrollListener = (OnScrollListener) listData.get(0);
                     break;
                 case 1:
                     listData.add(GirlsFragment.newInstance(GirlsFragment.LayoutType.GridLayout));
@@ -93,7 +110,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         tabLayout.setupWithViewPager(viewPager);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if(listData.get(position) instanceof  OnScrollListener){
+                    onScrollListener = (OnScrollListener) listData.get(position);
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -104,9 +140,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void clickFab(){
-        Uri uri = Uri.parse("mailto:jenly1314@gmail.com");
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        startActivity(Intent.createChooser(intent, "Choose Email Client"));
+
+        if(onScrollListener!=null){
+            onScrollListener.onScroll();
+        }
+
+//        Uri uri = Uri.parse("mailto:jenly1314@gmail.com");
+//        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+//        startActivity(Intent.createChooser(intent, "Choose Email Client"));
     }
 
     @Override

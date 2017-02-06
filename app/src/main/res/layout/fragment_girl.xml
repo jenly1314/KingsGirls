@@ -20,7 +20,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        app:layout_error="@layout/layout_error"
+        app:layout_empty="@layout/layout_empty">
 
     </com.jude.easyrecyclerview.EasyRecyclerView>
 </LinearLayout>

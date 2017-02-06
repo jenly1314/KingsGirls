@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.king.base.adapter.ViewHolderRecyclerAdapter;
-import com.king.base.util.ViewHolder;
+import com.king.base.adapter.holder.ViewHolder;
 import com.king.girl.R;
 import com.king.girl.model.GirlResult;
 

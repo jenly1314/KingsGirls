@@ -15,4 +15,7 @@ public final class Constants {
     public static final String LIST_GIRL = "list_girl";
 
 
+    public static final String FIRST_GIRL_URL = "first_girl_url";
+
+
 }
