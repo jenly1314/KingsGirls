@@ -1,7 +1,6 @@
 package com.king.girl;
 
 import android.os.Build;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -53,7 +52,6 @@ public class WelcomeActivity extends SplashActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                LogUtils.d("1111");
                 startActivityFinish(MainActivity.class);
             }
 
