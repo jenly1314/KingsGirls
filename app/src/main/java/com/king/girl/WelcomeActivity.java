@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.king.base.SplashActivity;
-import com.king.base.util.LogUtils;
 import com.king.base.util.SharedPreferencesUtils;
 
 /**
