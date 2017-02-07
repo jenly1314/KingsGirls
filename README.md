@@ -12,7 +12,7 @@ RXJava + Retrofit + OKHttp + Material Design + Base + Glide
 
 ##鸣谢
 
-[干货集中营](http://gank.io/) 提供的api
+[干货集中营](http://gank.io/) 提供的数据源
 
 ## License
 
