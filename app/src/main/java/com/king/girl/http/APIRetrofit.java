@@ -19,7 +19,9 @@ public class APIRetrofit {
 
     private static Retrofit mInstance;
 
-    public static Retrofit getIntance(){
+    private static OkHttpClient mOKHttpClient;
+
+    public static Retrofit getInstance(){
 
        if(mInstance == null){
            synchronized (APIRetrofit.class){
@@ -42,12 +44,21 @@ public class APIRetrofit {
     }
 
     private static OkHttpClient getOkHttpClient(){
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
-                .build();
-        return okHttpClient;
+        if(mInstance == null){
+            synchronized (APIRetrofit.class) {
+
+                if (mOKHttpClient == null) {
+
+                    mOKHttpClient = new OkHttpClient.Builder()
+                            .connectTimeout(10, TimeUnit.SECONDS)
+                            .readTimeout(10, TimeUnit.SECONDS)
+                            .writeTimeout(10, TimeUnit.SECONDS)
+                            .build();
+                }
+            }
+        }
+
+        return mOKHttpClient;
     }
 
 

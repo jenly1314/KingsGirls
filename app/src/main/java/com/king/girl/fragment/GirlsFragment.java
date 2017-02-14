@@ -208,7 +208,7 @@ public class GirlsFragment extends BaseFragment implements MainActivity.OnScroll
 
     private void getGirls(final int page,final int size){
 
-        APIRetrofit.getIntance()
+        APIRetrofit.getInstance()
                 .create(APIService.class)
                 .getGirs("福利",size,page)
                 .subscribeOn(Schedulers.io())
