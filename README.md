@@ -11,9 +11,29 @@ RXJava + Retrofit + OKHttp + Material Design + Base + Glide
 
 ![Image](GIF.gif)
 
-##鸣谢
+## 下载
+
+####    扫描二维码下载
+![QR_CODE](QR_KingsGirls.png)
+####    下载地址：https://fir.im/KingsGirls
+
+## 鸣谢
 
 [干货集中营](http://gank.io/) 提供的数据源
+
+
+## 关于我
+   Name: Jenly
+
+   Email: jenly1314@gmail.com / jenly1314@vip.qq.com
+
+   CSDN: http://www.csdn.net/jenly121
+
+   Github: https://github.com/jenly1314
+
+   微信公众号:
+
+   ![公众号](http://olambmg9j.bkt.clouddn.com/jenly666.jpg)
 
 ## License
 
