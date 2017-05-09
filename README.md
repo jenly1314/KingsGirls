@@ -9,6 +9,8 @@
 
 King's Girls 采用 RXJava + Retrofit + OKHttp + Material Design + Base + Glide构建，是一款以瀑布流的形式展示美女福利的App。
 
+## Gif展示
+
 ![Image](GIF.gif)
 
 ## 下载
