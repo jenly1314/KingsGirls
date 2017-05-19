@@ -36,6 +36,8 @@ King's Girls 采用 RXJava + Retrofit + OKHttp + Material Design + Base + Glide�
    微信公众号:
 
    ![公众号](http://olambmg9j.bkt.clouddn.com/jenly666.jpg)
+   
+   加入QQ群: [20867961](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
 
 ## License
 
